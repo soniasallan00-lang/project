@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - VegGood Food</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fdf7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .register-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+        }
+        
+        .logo {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .logo h1 {
+            color: #4CAF50;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .logo p {
+            color: #757575;
+            font-size: 16px;
+        }
+        
+        .register-form {
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #424242;
+            font-weight: 500;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9E9E9E;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 14px 14px 14px 45px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="tel"]:focus {
+            border-color: #a72828;
+            box-shadow: 0 0 0 2px rgba(167, 40, 40, 0.2);
+            outline: none;
+        }
+        
+        .name-fields {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .name-fields .form-group {
+            flex: 1;
+        }
+        
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .terms input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .terms label {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .terms a {
+            color: #a72828;
+            text-decoration: none;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+            color: #8d1f1f;
+        }
+        
+        .register-button {
+            background: #a72828;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .register-button:hover {
+            background: #8d1f1f;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #757575;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            font-size: 14px;
+        }
+        
+        .social-register {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-link {
+            margin-top: 25px;
+            text-align: center;
+            color: #757575;
+        }
+        
+        .login-link a {
+            color: #a72828;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+            color: #8d1f1f;
+        }
+        
+        .password-requirements {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            
+            .name-fields {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="logo">
+            <h1>VegGood Food</h1>
+            <p>Create your account</p>
+        </div>
+        <form method="post" class="register-form" id="registerForm">
+            {% csrf_token %}
+            <div class="name-fields">
+                <div class="form-group">
+                    <label for="firstName"> UserName</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="Username" placeholder="Enter your first name" required>
+                    </div>
+                </div>
+                
+                <!-- <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="lastName" placeholder="Enter your last name" required>
+                    </div>
+                </div> -->
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" name="phn" placeholder="Enter your phone number">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Create a password" required>
+                </div>
+                <div class="password-requirements">
+                    Must be at least 8 characters with numbers and letters
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="cpassword" placeholder="Confirm your password" required>
+                </div>
+            </div>
+            
+            <div class="terms">
+                <input type="checkbox" id="agreeTerms" required>
+                <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+            </div>
+            
+            <button type="submit" class="register-button">Create Account</button>
+        </form>
+        
+        <div class="divider">
+            <span>or sign up with</span>
+        </div>
+        
+        <div class="social-register">
+            <button class="social-btn">
+                <i class="fab fa-google" style="color: #DB4437;"></i>
+            </button>
+            <button class="social-btn">
+                <i class="fab fa-facebook-f" style="color: #4267B2;"></i>
+            </button>
+            <button class="social-btn">
+                <i class="fab fa-apple" style="color: #000000;"></i>
+            </button>
+        </div>
+        
+        <div class="login-link">
+            Already have an account? <a href="/login/">Sign in</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('UserName').value;
+            // const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            
+            // Simple validation
+            if (firstName.trim() === '' || lastName.trim() === '' || email.trim() === '' || password.trim() === '') {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long');
+                return;
+            }
+            
+            if (!agreeTerms) {
+                alert('Please agree to the Terms of Service and Privacy Policy');
+                return;
+            }
+            
+            // In a real application, you would send this data to a server
+            console.log('Registration attempt with:', { 
+                firstName, 
+                lastName, 
+                email, 
+                password 
+            });
+            
+            // Simulate successful registration
+            alert('Registration successful! Welcome to VegGood Food.');
+            
+            // Redirect to login page or dashboard
+            window.location.href = '/login/';
+        });
+    </script>
+</body>
+</html>
